@@ -52,14 +52,14 @@ for hacking on a checkout without installing it into a profile.
 ```
 src/
   registry.ts    # ctx.diagnostics: DiagnosticRegistry Service — registerCheck/list/run
-  checks.ts       # create*Check FACTORIES (2 always-on) + optional checks (4, service-gated)
-  index.ts        # the plugin: mounts the registry, calls each factory, registers the `diagnose` tool
+  checks.ts      # create*Check FACTORIES (2 always-on) + optional checks (4, service-gated)
+  index.ts       # the plugin: mounts the registry, calls each factory, registers the `diagnose` tool
 tests/
-  registry.spec.ts            # registry mechanics + the closure-vs-passed-ctx regression test
+  registry.spec.ts              # registry mechanics + the closure-vs-passed-ctx regression test
   checks.spec.ts                # credential-format / approval-policy branches + the index.ts wiring regression test
-  checks-integration.spec.ts     # all 6 checks against real Loader/ToolRuntime/SessionStore/etc.
+  checks-integration.spec.ts    # all 6 checks against real Loader/ToolRuntime/SessionStore/etc.
 cordis.patch.yml    # the bundle layer a profile applies when it lists this package
-package.json         # declares dsh.bundle, pointing at cordis.patch.yml
+package.json        # declares dsh.bundle, pointing at cordis.patch.yml
 ```
 
 ## What the checks actually do
@@ -72,7 +72,7 @@ itself); four more register only when their service is actually mounted in this 
 - **`plugin-fiber-state`** reads `ctx.loader.entries()` — the same primitive
   `@deepseek-ai/dsh-host-plugin-inventory` projects to the web UI — and reports each matching
   entry's `enabled`/`disabled` state and fiber phase (`pending`/`loading`/`active`/`failed`/
-  `unloading`/none). This is the live version of manually running `dsh --profile <p>
+  `unloading`/none). This is the live version of manually running `dsh --profile <name>
   --dump-config` and reading it by eye. (It's gated on `ctx.loader` like the other optional checks
   below, even though the description here groups it with the "always on" pair for token-cost
   purposes — see `index.ts`.)
@@ -162,9 +162,9 @@ the output itself.
 - [x] Published on GitHub, public, tagged with the [`dsh-plugin`](https://github.com/topics/dsh-plugin) topic.
 - [x] `LICENSE` filled in with a real copyright holder.
 - [x] Published on npm as [`dsh-tool-diagnose`](https://www.npmjs.com/package/dsh-tool-diagnose) —
-      install with `dsh plugin add dsh-tool-diagnose`. The GitHub source install
-      (`dsh plugin add github:xu-kai-quan/dsh-tool-diagnose`, see the build-script caveat below)
-      still works too, and tracks `master` rather than the last tagged npm release.
+      see [Install](#install) above. Installing straight from GitHub source instead
+      (`dsh plugin --profile <name> add github:xu-kai-quan/dsh-tool-diagnose`, see the build-script
+      caveat below) still works too, and tracks `master` rather than the last tagged npm release.
 
 If you fork or extend this:
 

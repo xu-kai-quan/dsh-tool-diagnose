@@ -16,6 +16,13 @@ same way this package's own `checks.ts` does.
 dsh plugin --profile <name> add dsh-tool-diagnose
 ```
 
+`<name>` is whichever profile you already run — `web` if you launch the web UI with `dsh --profile
+web`, `headless` for one-shot tasks (`dsh --profile headless "..."`), or a custom name of your own.
+Both `web` and `headless` are built-in templates that auto-initialize on first use; you don't need
+to create them first. Profiles live under `$DSH_HOME/profiles/<name>/` (default `~/.dsh/profiles`)
+— list what you already have with `ls "$DSH_HOME/profiles"` (macOS/Linux) or `dir
+$env:DSH_HOME\profiles` (PowerShell).
+
 Then, in a session: "Use the diagnose tool to check why the bash_run tool isn't showing up." See
 [Status](#status) for the GitHub-source install alternative, and [Try it locally](#try-it-locally)
 for hacking on a checkout without installing it into a profile.

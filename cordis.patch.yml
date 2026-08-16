@@ -1,0 +1,6 @@
+# Applied when a profile lists this bundle (packages/README references the layer order).
+- insert:
+    - id: diagnose-tool
+      name: dsh-tool-diagnose
+      config:
+        enableBuiltinChecks: true

@@ -120,9 +120,10 @@ the output itself.
 
 - [x] Published on GitHub, public, tagged with the [`dsh-plugin`](https://github.com/topics/dsh-plugin) topic.
 - [x] `LICENSE` filled in with a real copyright holder.
-- [ ] Not yet on npm — install today via `dsh plugin add github:xu-kai-quan/dsh-tool-diagnose`
-      (see the git-install build-script caveat below); `npm publish` would let users
-      `dsh plugin add dsh-tool-diagnose` instead.
+- [x] Published on npm as [`dsh-tool-diagnose`](https://www.npmjs.com/package/dsh-tool-diagnose) —
+      install with `dsh plugin add dsh-tool-diagnose`. The GitHub source install
+      (`dsh plugin add github:xu-kai-quan/dsh-tool-diagnose`, see the build-script caveat below)
+      still works too, and tracks `master` rather than the last tagged npm release.
 
 If you fork or extend this:
 

@@ -12,16 +12,36 @@ same way this package's own `checks.ts` does.
 
 ## Install
 
+**If you use the DSH web UI:**
+
 ```sh
-dsh plugin --profile <name> add dsh-tool-diagnose
+dsh plugin --profile web add dsh-tool-diagnose
 ```
 
-`<name>` is whichever profile you already run — `web` if you launch the web UI with `dsh --profile
-web`, `headless` for one-shot tasks (`dsh --profile headless "..."`), or a custom name of your own.
-Both `web` and `headless` are built-in templates that auto-initialize on first use; you don't need
-to create them first. Profiles live under `$DSH_HOME/profiles/<name>/` (default `~/.dsh/profiles`)
-— list what you already have with `ls "$DSH_HOME/profiles"` (macOS/Linux) or `dir
-$env:DSH_HOME\profiles` (PowerShell).
+**If you run one-off tasks from the terminal instead** (`dsh --profile headless "some task"`):
+
+```sh
+dsh plugin --profile headless add dsh-tool-diagnose
+```
+
+`web` and `headless` are the two names DSH ships out of the box, matching the two commands above —
+whichever one you already use day to day, use that same word in place of `--profile web` /
+`--profile headless`. You don't need to set anything up first; both initialize themselves
+automatically the first time you use them.
+
+<details>
+<summary>Using a custom profile name instead of web/headless?</summary>
+
+A "profile" is just a folder under `$DSH_HOME/profiles/<name>/` (`$DSH_HOME` defaults to
+`~/.dsh`). If you've set up your own named profile, use that folder's name after `--profile`. See
+what you already have:
+
+```sh
+ls "$DSH_HOME/profiles"          # macOS/Linux
+dir $env:DSH_HOME\profiles       # PowerShell
+```
+
+</details>
 
 Then, in a session: "Use the diagnose tool to check why the bash_run tool isn't showing up." See
 [Status](#status) for the GitHub-source install alternative, and [Try it locally](#try-it-locally)

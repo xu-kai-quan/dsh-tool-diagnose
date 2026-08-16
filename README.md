@@ -108,26 +108,35 @@ tutorial-style local-file pattern) for a quick source-launch test, the module `n
 
 ## Plugin vs Skill
 
-If you want the community's original `dsh-diagnose` Skill's shape (a portable, no-build,
-copy-into-`~/.agents/skills/` symptom table any DSH session can read), that's a different artifact
-— see the companion write-up under `dsh-runtime-diagnose` from the earlier conversation. The two
-compose well: a Skill can tell the agent "call the `diagnose` tool first, then read its findings
-against this table" instead of asking it to run shell commands and parse the output itself.
+If you want a portable, no-build, copy-into-`~/.agents/skills/` symptom table any DSH session can
+read instead, that's a Skill, not a plugin — see the original share in
+[Discussion #1739](https://github.com/deepseek-ai/deepseek-harness/discussions/1739), which is what
+this plugin took its methodology cues from (especially version-anchoring knowledge to a specific
+dsh release). The two compose well: a Skill can tell the agent "call the `diagnose` tool first,
+then read its findings against this table" instead of asking it to run shell commands and parse
+the output itself.
 
-## Before publishing to the community
+## Status
 
-1. Fill in `LICENSE` with your real name/organization.
-2. Confirm dependency versions against what you actually build/test against — this skeleton pins
+- [x] Published on GitHub, public, tagged with the [`dsh-plugin`](https://github.com/topics/dsh-plugin) topic.
+- [x] `LICENSE` filled in with a real copyright holder.
+- [ ] Not yet on npm — install today via `dsh plugin add github:xu-kai-quan/dsh-tool-diagnose`
+      (see the git-install build-script caveat below); `npm publish` would let users
+      `dsh plugin add dsh-tool-diagnose` instead.
+
+If you fork or extend this:
+
+1. Confirm dependency versions against what you actually build/test against — this skeleton pins
    the versions available at scaffold time: `@deepseek-ai/cordis@4.0.1`,
    `@deepseek-ai/cordis-plugin-loader@1.0.2`, `@deepseek-ai/schemastery@3.18.1`, and
    `@deepseek-ai/dsh-tools`/`dsh-credentials`/`dsh-user-approval`/`dsh-token-meter`/`dsh-session`/
    `dsh-subagent` all at `0.1.0-rc.5` (the dsh family is versioned in lockstep).
-3. Ship prebuilt output (`npm publish`, or `pnpm pack` + tarball) rather than relying on installers
+2. Ship prebuilt output (`npm publish`, or `pnpm pack` + tarball) rather than relying on installers
    allowing a git-install `prepare` script, unless you want users to opt into that.
-4. `npm install && npm test && npm run build` before tagging a release — and, per the audit notes
+3. `npm install && npm test && npm run build` before tagging a release — and, per the audit notes
    below, actually boot it inside a real `dsh` process at least once. This package's own bugs were
    invisible to its test suite until that step.
-5. Write real checks — the six shipped here are a useful starting set, not the ceiling; port
+4. Write real checks — the six shipped here are a useful starting set, not the ceiling; port
    whatever mechanism chains you'd otherwise write as Skill symptom rows into `DiagnosticCheck`s
    that actually read the live state instead of describing how to. Grep the target package's
    README for its `ctx.<key>` service surface first, the way this package's checks were built.

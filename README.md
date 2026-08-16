@@ -1,11 +1,24 @@
 # dsh-tool-diagnose
 
+[![npm](https://img.shields.io/npm/v/dsh-tool-diagnose.svg)](https://www.npmjs.com/package/dsh-tool-diagnose)
+[![license](https://img.shields.io/npm/l/dsh-tool-diagnose.svg)](LICENSE)
+
 A [DeepSeek Harness](https://github.com/deepseek-ai/deepseek-harness) **Cordis plugin** (not a
 Skill — see [Plugin vs Skill](#plugin-vs-skill)) that exposes a model-facing `diagnose` tool backed
 by an extensible check registry, `ctx.diagnostics`. Where a symptom-table Skill tells the agent
 which shell command to run and how to read its output, this plugin runs the introspection itself,
 inside the process, against live Cordis state — and lets other plugins contribute more checks the
 same way this package's own `checks.ts` does.
+
+## Install
+
+```sh
+dsh plugin --profile <name> add dsh-tool-diagnose
+```
+
+Then, in a session: "Use the diagnose tool to check why the bash_run tool isn't showing up." See
+[Status](#status) for the GitHub-source install alternative, and [Try it locally](#try-it-locally)
+for hacking on a checkout without installing it into a profile.
 
 ## Layout
 
@@ -93,13 +106,14 @@ disposer but you rarely need to call it directly; Cordis calls it for you on unl
 
 ## Try it locally
 
+For hacking on a checkout rather than installing the published package (see [Install](#install)
+above for that):
+
 ```sh
 pnpm dsh plugin --profile demo add /path/to/dsh-tool-diagnose
 dsh --profile demo --dump-config   # confirm the "diagnose-tool" row is present
 dsh --profile demo
 ```
-
-Then, in a session: "Use the diagnose tool to check why the bash_run tool isn't showing up."
 
 On Windows, if you instead point a `--patch` overlay directly at `src/index.ts` (the
 tutorial-style local-file pattern) for a quick source-launch test, the module `name` must be a
